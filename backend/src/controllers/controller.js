@@ -55,7 +55,7 @@ function crearCategoria(req, res){
         })
     }
 }
-function eliminarCategorias(req, res) {
+function eliminarCategoria(req, res) {
     if(conexion) {
         const { id } = req.params;
         let sql = "DELETE FROM proyecto_web.categorias WHERE CategoryID = ?";
@@ -67,12 +67,37 @@ function eliminarCategorias(req, res) {
                 if(data.affectedRows === 0) {
                     mensaje = "Categoria no encontrada";
                 } else {
-                    mensaje = "Categoria elimina con éxito";
+                    mensaje = "Categoria eliminada con éxito";
                 }
 
                 res.json({error: false, data, mensaje});
             }
         })
+    }
+}
+function editarCategoria(req, res) {
+    if(conexion){
+        const { id } = req.params;
+        const categoria = req.body;
+
+        let sql = "UPDATE proyecto_web.categorias set ? WHERE CategoryID = ?";
+
+        conexion.query(sql, [categoria, id], (err, data) => {
+            if(err) {
+                res.json(err);
+            } else {
+                let mensaje = "";
+                if(data.changedRows === 0) {
+                    mensaje = "La información es la misma"
+                } else {
+                    mensaje = "Categoria actualizada con exito."
+                }
+
+                res.json({error: false, data, mensaje});
+            }
+        } )
+
+
     }
 }
 
@@ -88,6 +113,22 @@ function listarPersonal(req,res){
                 res.json(persona);
             }
         });
+    }
+}
+function obtenerPersonal(req, res) {
+    if(conexion){
+        const { id } = req.params; 
+        let sql = `SELECT * FROM proyecto_web.persona WHERE PersonaID = ${conexion.escape(id)}`;
+        conexion.query(sql, (err, persona) => {
+            if(err){
+                console.log(err);
+            } else {
+                var mensaje1 = "";
+                if(persona === undefined || persona.length == 0)
+                mensaje1 = "Persona no encontrada";
+                res.json({data: persona[0], mensaje: mensaje1});
+            }
+        })
     }
 }
 function crearPersonal(req, res){
@@ -131,6 +172,51 @@ function crearPersonal(req, res){
         })
     }
 }
+function eliminarPersonal(req, res) {
+    if(conexion) {
+        const { id } = req.params;
+        let sql = "DELETE FROM proyecto_web.persona WHERE PersonaID = ?";
+        conexion.query(sql, [id], (err, data) => {
+            if(err) {
+                res.json(err);
+            } else {
+                let mensaje = "";
+                if(data.affectedRows === 0) {
+                    mensaje = "Personal no encontrado";
+                } else {
+                    mensaje = "Personal eliminado con éxito";
+                }
+
+                res.json({error: false, data, mensaje});
+            }
+        })
+    }
+}
+function editarPersonal(req, res) {
+    if(conexion){
+        const { id } = req.params;
+        const personal = req.body;
+
+        let sql = "UPDATE proyecto_web.persona set ? WHERE PersonaID = ?";
+
+        conexion.query(sql, [personal, id], (err, data) => {
+            if(err) {
+                res.json(err);
+            } else {
+                let mensaje = "";
+                if(data.changedRows === 0) {
+                    mensaje = "La información es la misma"
+                } else {
+                    mensaje = "Personal actualizado con exito."
+                }
+
+                res.json({error: false, data, mensaje});
+            }
+        } )
+
+
+    }
+}
 
 //funciones de tickets
 function listarTickets(req,res){
@@ -144,6 +230,22 @@ function listarTickets(req,res){
                 res.json(ticket);
             }
         });
+    }
+}
+function obtenerTicket(req, res) {
+    if(conexion){
+        const { id } = req.params; 
+        let sql = `SELECT * FROM proyecto_web.tickets WHERE ticketsID = ${conexion.escape(id)}`;
+        conexion.query(sql, (err, Ticket) => {
+            if(err){
+                console.log(err);
+            } else {
+                var mensaje1 = "";
+                if(Ticket === undefined || Ticket.length == 0)
+                mensaje1 = "Ticket no encontrado";
+                res.json({data: Ticket[0], mensaje: mensaje1});
+            }
+        })
     }
 }
 function crearTicket(req, res){
@@ -187,14 +289,71 @@ function crearTicket(req, res){
         })
     }
 }
+function eliminarTicket(req, res) {
+    if(conexion) {
+        const { id } = req.params;
+        let sql = "DELETE FROM proyecto_web.tickets WHERE ticketsID = ?";
+        conexion.query(sql, [id], (err, data) => {
+            if(err) {
+                res.json(err);
+            } else {
+                let mensaje = "";
+                if(data.affectedRows === 0) {
+                    mensaje = "Ticket no encontrado";
+                } else {
+                    mensaje = "Ticket eliminado con éxito";
+                }
+                res.json({error: false, data, mensaje});
+            }
+        })
+    }
+}
+function editarTicket(req, res) {
+    if(conexion){
+        const { id } = req.params;
+        const ticket = req.body;
+
+        let sql = "UPDATE proyecto_web.tickets set ? WHERE ticketsID = ?";
+
+        conexion.query(sql, [ticket, id], (err, data) => {
+            if(err) {
+                res.json(err);
+            } else {
+                let mensaje = "";
+                if(data.changedRows === 0) {
+                    mensaje = "La información es la misma"
+                } else {
+                    mensaje = "Ticket actualizada con exito."
+                }
+
+                res.json({error: false, data, mensaje});
+            }
+        } )
+
+
+    }
+}
+
 
 module.exports = {
+    //categorias
     listarCategorias,
-    listarPersonal,
-    listarTickets,
-    crearCategoria,
-    crearTicket,
-    eliminarCategorias,
     obtenerCategoria,
-    crearPersonal
+    eliminarCategoria,
+    crearCategoria,
+    editarCategoria,
+
+    //tickets
+    listarTickets,
+    obtenerTicket,
+    crearTicket,
+    eliminarTicket,
+    editarTicket,
+
+    //personal
+    listarPersonal,
+    obtenerPersonal,
+    crearPersonal,
+    eliminarPersonal,
+    editarPersonal
 }

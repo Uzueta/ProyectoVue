@@ -5,8 +5,8 @@ import VisualizarCategorias from '../views/VisualizarCategorias.vue'
 import VisualizarTickets from '../views/VisualizarTickets.vue'
 import VisualizarPersonal from '../views/VisualizarPersonal.vue'
 import AgregarCategorias from '../views/AgregarCategorias.vue'
-import EliminarCategorias from '../views/EliminarCategorias.vue'
 import AgregarPersonal from '../views/AgregarPersonal.vue'
+import EditarPersonal from '../views/EditarPersonal.vue'
 
 Vue.use(VueRouter)
 
@@ -37,14 +37,14 @@ const routes = [
     component: AgregarCategorias
   },
   {
-    path: '/EliminarCategorias',
-    name: 'EliminarCategorias',
-    component: EliminarCategorias
-  },
-  {
     path: '/AgregarPersonal',
     name: 'AgregarPersonal',
     component: AgregarPersonal
+  },
+  {
+    path: '/EditarPersonal',
+    name: 'EditarPersonal',
+    component: EditarPersonal
   }
 ]
 
