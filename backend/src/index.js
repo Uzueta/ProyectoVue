@@ -12,11 +12,6 @@ app.set('port', process.env.Port || 3000);
 app.use(express.urlencoded({extend: false}));
 app.use(express.json());
 app.use(cors());
-//ruta
-/*app.get('/', (req,res) =>{
-    console.log("Holi");
-    res.send("mensaje");
-});*/
 
 //base de datos
 require('./config/connection');
