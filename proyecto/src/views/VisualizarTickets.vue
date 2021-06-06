@@ -1,7 +1,13 @@
 <template>
   <div class="tickets">
     <h1>Tickets</h1>
-    <Table :items="tickets" :fields="campos"/>
+    <b-button variant="primary" to="/AgregarTickets">Agregar</b-button>
+    <Table :items="tickets" :fields="campos">
+      <template slot="actions" slot-scope="{ item }">
+        <b-button class="me-1" @click="onEditar(item)">Editar</b-button>
+        <b-button @click="onEliminar(item)">Eliminar</b-button>
+      </template>
+    </Table>
   </div>
 </template>
 
@@ -27,7 +33,8 @@ export default {
         {key: "Prioridad", label: "Prioridad" },
         {key: "Nombre Personal", label: "Nombre Personal" },
         {key: "CategoryName", label: "Categoria" },
-        {key: "Estatus", label: "Estatus" }
+        {key: "Estatus", label: "Estatus" },
+        { key: "actions", label: "Acciones" },
       ]
     }
   },
@@ -35,7 +42,47 @@ export default {
     ...mapState(['tickets'])
   },
   methods:{
-    ...mapActions(['setTickets'])
+    ...mapActions(['setTickets', 'eliminarTicket']),
+    onEditar(item) {
+      console.log("Editar", item.item.ticketsID);
+      this.$router.push({
+        name: "EditarTickets",
+        params: {
+          id: item.item.ticketsID,
+        },
+      });
+    },
+    onEliminar(item) {
+      console.log("Eliminar", item.item.ticketsID);
+      this.$bvModal
+        .msgBoxConfirm("Esta opción no se puede deshacer.", {
+          title: "Eliminar Ticket",
+          size: "sm",
+          buttonSize: "sm",
+          okVariant: "danger",
+          okTitle: "Aceptar",
+          cancelTitle: "Cancelar",
+          footerClass: "p-2",
+          centered: true,
+        })
+        .then((value) => {
+          if (value) {
+            this.eliminarTicket({
+              id: item.item.ticketsID,
+              onComplete: (response) => {
+                this.$notify({
+                  type: "success",
+                  title: response.data.mensaje,
+                });
+                setTimeout(() => this.setTickets(), 1000);
+              },
+            });
+          }
+        })
+        .catch((err) => {
+          console.log(err)
+        });
+    },
   },
   created(){
     this.setTickets()

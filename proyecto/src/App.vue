@@ -13,18 +13,23 @@
       <b-nav-item>
         <b-navbar-brand to="/VisualizarCategorias">Categorias</b-navbar-brand> 
       </b-nav-item>
+
+      <b-nav-item>
+        <b-navbar-brand to="/VisualizarTickets">Tickets</b-navbar-brand> 
+      </b-nav-item>
       <!-- Navbar dropdowns -->
-      <b-nav-item-dropdown text="Tickets" right>
+      <!-- <b-nav-item-dropdown text="Tickets" right>
         <b-dropdown-item><router-link to="/VisualizarTickets">Visualizar Tickets</router-link></b-dropdown-item>
         <b-dropdown-item href="#">Agregar Tickets</b-dropdown-item>
-        <b-dropdown-item href="#">Editar Tickets</b-dropdown-item>
+        <b-dropdown-item><router-link to="/EditarTickets">Editar Tickets</router-link></b-dropdown-item>
         <b-dropdown-item href="#">Eliminar Tickets</b-dropdown-item>
-      </b-nav-item-dropdown>
+      </b-nav-item-dropdown> -->
     </b-navbar-nav>
   </b-navbar>
 
 
-    <router-view class="container mt-3"/>
+   <router-view class="container  mt-3" />
+    <notifications position="bottom right" />
   </div>
 </template>
 

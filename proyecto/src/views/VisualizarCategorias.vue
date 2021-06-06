@@ -10,6 +10,7 @@
   </div>
 </template>
 
+
 <script>
 import Table from '../components/Table'
 import {mapActions,mapState} from 'vuex'
@@ -56,6 +57,13 @@ export default {
                   title: response.data.mensaje,
                 });
                 setTimeout(() => this.setCategorias(), 1000);
+              },
+              onError: (error) => {
+                console.log(error.response.data.mensaje);
+                this.$notify({
+                  type: "error",
+                  title: error.response.data.mensaje,
+                });
               },
             });
           }

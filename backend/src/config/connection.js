@@ -5,7 +5,7 @@ const objectConnection = {
     "host": "localhost",
     "port": "3306",
     "user": "root",
-    "password": "lacerador1",
+    "password": "1234",
     "datebase": "proyecto_web"
 }
 
@@ -13,10 +13,10 @@ const objectConnection = {
 const conn = mysql.createConnection(objectConnection);
 
 //conectar
-conn.connect((error)=>{
-    if(error){
+conn.connect((error) => {
+    if (error) {
         console.log("Error bd: ", error);
-    }else{
+    } else {
         console.log("base de datos conectada");
     }
 });

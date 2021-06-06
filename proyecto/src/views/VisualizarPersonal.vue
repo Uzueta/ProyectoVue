@@ -13,7 +13,8 @@
 
 <script>
 import Table from "../components/Table";
-import { mapState, mapActions } from "vuex";
+import {mapActions, mapState} from "vuex";
+
 export default {
   name: "VisualizarPersonal",
   components: {
@@ -22,11 +23,17 @@ export default {
   data() {
     return {
       campos: [
-        {key: "PersonaID", label: "Clave" },
-        {key: "Nombre", label: "Nombre" },
-        {key: "Apellidos", label: "Apellidos" },
-        {key: "Telefono", label: "Telefono" , formatter: (value) => { return value || "-";}},
-        {key: "Direccion ",  label: "Direccion", formatter: (value) => { return value || "-";}},
+        { key: "PersonaID", label: "Clave" },
+        { key: "Nombre", label: "Nombre" },
+        { key: "Apellidos", label: "Apellidos" },
+        {
+          key: "Telefono",
+          label: "Telefono",
+          formatter: (value) => {
+            return value || "-";
+          },
+        },
+        {key: "Direccion", label: "Direccion" },
         { key: "actions", label: "Acciones" },
       ],
     };
@@ -69,11 +76,18 @@ export default {
                 });
                 setTimeout(() => this.setPersonas(), 1000);
               },
+              onError: (error) => {
+                console.log(error.response.data.mensaje);
+                this.$notify({
+                  type: "error",
+                  title: error.response.data.mensaje,
+                });
+              },
             });
           }
         })
         .catch((err) => {
-          console.log(err)
+          console.log(err);
         });
     },
   },
