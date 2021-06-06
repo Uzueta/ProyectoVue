@@ -1,6 +1,7 @@
 <template>
   <div id="app">
   <b-navbar type="dark" variant="dark">
+    <b-container fluid="sm">
     <b-navbar-nav>
       <b-nav-item>
         <b-navbar-brand to="/">Inicio</b-navbar-brand> 
@@ -25,6 +26,7 @@
         <b-dropdown-item href="#">Eliminar Tickets</b-dropdown-item>
       </b-nav-item-dropdown> -->
     </b-navbar-nav>
+    </b-container>
   </b-navbar>
 
 

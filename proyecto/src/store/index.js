@@ -8,6 +8,7 @@ export default new Vuex.Store({
     state: {
         tickets: [],
         ticket: {},
+        prioridades: ["B","M","A"],
         categorias: [],
         categoria: {},
         personas: [],
@@ -48,6 +49,12 @@ export default new Vuex.Store({
                     onComplete(response)
                 })
                 .catch(onError)
+        },
+        crearTicket({commit},{params,onComplete,onError}){
+          axios.post('http://localhost:3000/tickets',params)
+          .then(onComplete)
+          .catch(onError)
+          console.log(commit.length)
         },
         editarTicket({ commit }, { id, params, onComplete, onError }) {
             axios.put(`http://localhost:3000/${id}`, params)
