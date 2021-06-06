@@ -37,7 +37,7 @@ export default new Vuex.Store({
     actions: {
         //tickets
         setTickets({ commit }) {
-            axios.get('http://localhost:3000/')
+            axios.get('http://localhost:3000/tickets')
                 .then(res => {
                     commit('SET_TICKETS', res.data)
                 })

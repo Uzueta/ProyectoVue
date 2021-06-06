@@ -77,6 +77,8 @@ export default {
   methods: {
     ...mapActions(["obtenerTicket", "editarTicket"]),
     guardarTickets() {
+        console.log(this.tickets.Prioridad)
+
       if (this.validacionDescripcion) {
         this.erroresValidacion = false;
 

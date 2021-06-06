@@ -19,10 +19,10 @@ routes.delete('/personal/:id', controller.eliminarPersonal);
 routes.put('/personal/:id', controller.editarPersonal);
 
 //rutas de tickets
-routes.get('/', controller.listarTickets);
-routes.get('/:id', controller.obtenerTicket);
-routes.post('/', controller.crearTicket);
-routes.delete('/:id', controller.eliminarTicket);
-routes.put('/:id', controller.editarTicket);
+routes.get('/tickets', controller.listarTickets);
+routes.get('/tickets/:id', controller.obtenerTicket);
+routes.post('/tickets', controller.crearTicket);
+routes.delete('/tickets/:id', controller.eliminarTicket);
+routes.put('/tickets/:id', controller.editarTicket);
 
 module.exports = routes;
