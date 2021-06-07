@@ -8,6 +8,7 @@ export default new Vuex.Store({
     state: {
         tickets: [],
         ticket: {},
+        ticketsFiltrados: [],
         prioridades: ["B", "M", "A"],
         categorias: [],
         categoria: {},
@@ -20,6 +21,9 @@ export default new Vuex.Store({
         },
         SET_TICKET(state, ticket) {
             state.tickets = ticket;
+        },
+        SET_TICKETS_FILTRADOS(state, tickets){
+            state.ticketsFiltrados = tickets;
         },
         SET_CATEGORIAS(state, categorias) {
             state.categorias = categorias;
@@ -47,6 +51,16 @@ export default new Vuex.Store({
                 .then(response => {
                     commit('SET_TICKET', response.data.data);
                     onComplete(response)
+                })
+                .catch(onError)
+        },
+        obtenerTicketsFiltrados({ commit }, {id, onError}){
+            console.log(id);
+            axios.get(`http://localhost:3000/tickets/filtrar/${id}`)
+                .then(response => {
+                    console.log(response);
+                    commit('SET_TICKETS_FILTRADOS', response.data);
+                    // onComplete(response)
                 })
                 .catch(onError)
         },

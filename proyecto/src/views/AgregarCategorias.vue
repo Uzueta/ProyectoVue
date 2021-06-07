@@ -12,7 +12,8 @@
                 :error="errorValidacion && !validacionCategoria"
                 class="mt-2"
             />
-             <b-button type="submit" variant="primary" class="mt-3">Guardar</b-button>
+            
+             <b-button type="submit" variant="primary" class="mt-3" >Guardar</b-button>
         </b-form>
         <notifications position="bottom right"/>
     </div>

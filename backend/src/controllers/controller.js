@@ -246,6 +246,25 @@ function listarTickets(req, res) {
     }
 }
 
+function filtrarTickets(req, res) {
+    const { id } = req.params;
+    if (conexion) {
+        let sql = `SELECT T.ticketsID, T.Nombre, T.Descripcion, T.Prioridad, P.Nombre as Nombre_Personal, C.CategoryName, T.Estatus
+        FROM proyecto_web.tickets as T 
+        INNER JOIN proyecto_web.persona as P ON T.PersonaID = P.PersonaID
+        INNER JOIN proyecto_web.categorias as C ON T.CategoryID = C.CategoryID
+        WHERE T.CategoryID=${id}`
+        conexion.query(sql, (err, resp) => {
+            if (err) {
+                res.json(err);
+            } else {
+                console.log(resp, 'wcss');
+                res.json(resp);
+            }
+        });
+    }
+}
+
 function obtenerTicket(req, res) {
     if (conexion) {
         const { id } = req.params;
@@ -385,6 +404,7 @@ module.exports = {
     crearTicket,
     eliminarTicket,
     editarTicket,
+    filtrarTickets,
 
     //personal
     listarPersonal,

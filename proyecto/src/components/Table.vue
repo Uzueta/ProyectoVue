@@ -10,7 +10,7 @@
       </template>
 
       // Bootstrap
-      <template #cell(actions)="data">
+      <template #cell(actions)="data" >
         <slot name="actions" :item="data"> 
 
         </slot>

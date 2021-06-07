@@ -9,9 +9,9 @@
         v-model="tickets.Estatus"
       >
         <option value="" disabled hidden>Seleccione el estatus</option>
-        <option value="ABT">ABT</option>
-        <option value="ESP">ESP</option>
-        <option value="FIN">FIN</option>
+        <option value="ABT">Abierto</option>
+        <option value="ESP">En espera</option>
+        <option value="FIN">Finalizado</option>
       </select>
 
       <span v-if="erroresValidacion && !validacionEstatus" class="text-danger"

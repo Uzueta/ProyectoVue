@@ -33,7 +33,13 @@ export default {
             return value || "-";
           },
         },
-        {key: "Direccion", label: "Direccion" },
+        {
+          key: "Direccion",
+          label: "Direccion",
+          formatter: (value) => {
+            return value || "-";
+          },
+        },
         { key: "actions", label: "Acciones" },
       ],
     };

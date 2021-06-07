@@ -11,6 +11,7 @@ routes.get('/categorias/:id', controller.obtenerCategoria);
 routes.post('/categorias', controller.crearCategoria);
 routes.delete('/categorias/:id', controller.eliminarCategoria);
 routes.put('/categorias/:id', controller.editarCategoria);
+
 //rutas de personal
 routes.get('/personal', controller.listarPersonal);
 routes.get('/personal/:id', controller.obtenerPersonal);
@@ -24,5 +25,6 @@ routes.get('/tickets/:id', controller.obtenerTicket);
 routes.post('/tickets', controller.crearTicket);
 routes.delete('/tickets/:id', controller.eliminarTicket);
 routes.put('/tickets/:id', controller.editarTicket);
+routes.get('/tickets/filtrar/:id', controller.filtrarTickets);
 
 module.exports = routes;
