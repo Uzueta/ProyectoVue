@@ -1,6 +1,6 @@
 <template>
   <div class="inicio">
-    <h1>Tickets + Categorias</h1>
+    <h1>Sistema de Tickets</h1>
      <label class="mt-2">Categoria</label>
      <div class="row pb-3">
        <div class="col-2">
@@ -16,7 +16,7 @@
         </select>
        </div>
        <div class="col">
-         <b-button variant="outline-primary" @click="filtrar()">Filtrar</b-button>
+         <b-button variant="outline-secondary" @click="filtrar()">Filtrar</b-button>
        </div>
         
      </div>

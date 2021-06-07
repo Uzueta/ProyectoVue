@@ -1,12 +1,12 @@
 <template>
   <div class="tickets">
     <h1>Tickets</h1>
-    <b-button variant="primary" to="/AgregarTickets">Agregar</b-button>
+    <b-button variant="success" to="/AgregarTickets">Agregar</b-button>
     <Table :items="tickets" :fields="campos">
       <template slot="actions" slot-scope="{ item }">
-        <b-button class="me-1" @click="onEditar(item)">Editar</b-button>
-        <b-button class="me-1" @click="onEliminar(item)">Eliminar</b-button>
-        <b-button class="me-1" @click="onEstatus(item)">Estatus</b-button>
+        <b-button variant="outline-info" class="me-1" @click="onEditar(item)">Editar</b-button>
+        <b-button variant="outline-danger" class="me-1" @click="onEliminar(item)">Eliminar</b-button>
+        <b-button variant="outline-warning" class="me-1" @click="onEstatus(item)">Estatus</b-button>
       </template>
     </Table>
   </div>

@@ -1,11 +1,11 @@
 <template>
   <div>
     <h1>Personal</h1>
-    <b-button variant="primary" to="/AgregarPersonal">Agregar</b-button>
+    <b-button variant="success" to="/AgregarPersonal">Agregar</b-button>
     <Table :items="personas" :fields="campos">
       <template slot="actions" slot-scope="{ item }">
-        <b-button class="me-1" @click="onEditar(item)">Editar</b-button>
-        <b-button @click="onEliminar(item)">Eliminar</b-button>
+        <b-button variant="outline-info" class="me-1" @click="onEditar(item)">Editar</b-button>
+        <b-button  variant="outline-danger" @click="onEliminar(item)">Eliminar</b-button>
       </template>
     </Table>
   </div>

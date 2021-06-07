@@ -1,10 +1,10 @@
 <template>
   <div>
     <h1>Categorias</h1>
-    <b-button variant="primary" to="/AgregarCategorias">Agregar</b-button>
+    <b-button variant="success" to="/AgregarCategorias">Agregar</b-button>
     <Table :items="categorias" :fields="campos">
       <template slot="actions" slot-scope="{ item }">
-        <b-button @click="onEliminar(item)">Eliminar</b-button>
+        <b-button  variant="outline-danger" @click="onEliminar(item)">Eliminar</b-button>
       </template>
     </Table>
   </div>

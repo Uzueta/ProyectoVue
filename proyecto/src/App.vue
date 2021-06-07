@@ -1,22 +1,22 @@
 <template>
   <div id="app">
-  <b-navbar style="background-color: #772953;">
+  <b-navbar style="background-color: #e6932e">
     <b-container fluid="sm">
     <b-navbar-nav>
       <b-nav-item>
-        <b-navbar-brand to="/">Inicio</b-navbar-brand> 
+        <b-navbar-brand style="color: #fff" to="/">Inicio</b-navbar-brand> 
       </b-nav-item>
 
       <b-nav-item>
-        <b-navbar-brand to="/VisualizarPersonal">Personal</b-navbar-brand> 
+        <b-navbar-brand style="color: #fff" to="/VisualizarPersonal">Personal</b-navbar-brand> 
       </b-nav-item>
 
       <b-nav-item>
-        <b-navbar-brand to="/VisualizarCategorias">Categorias</b-navbar-brand> 
+        <b-navbar-brand style="color: #fff" to="/VisualizarCategorias">Categorias</b-navbar-brand> 
       </b-nav-item>
 
       <b-nav-item>
-        <b-navbar-brand to="/VisualizarTickets">Tickets</b-navbar-brand> 
+        <b-navbar-brand style="color: #fff" to="/VisualizarTickets">Tickets</b-navbar-brand> 
       </b-nav-item>
      
     </b-navbar-nav>
@@ -34,7 +34,6 @@
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #000000;
 }
 
 </style>

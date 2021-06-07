@@ -74,7 +74,7 @@
         >{{ "Campo Obligatorio" }}<br
       /></span>
 
-      <b-button type="submit" variant="primary" class="mt-3">Guardar</b-button>
+      <b-button type="submit" variant="dark" class="mt-3">Guardar</b-button>
     </b-form>
   </div>
 </template>
