@@ -7,26 +7,11 @@
         id="Descripcion"
         titulo="Descripcion"
         placeholder="Ingrese la descripción"
-        :maxlength="50"
+        :maxlength="100"
         class="mb-2"
       />
-      <Input
-        v-model="tickets.PersonaID"
-        id="PersonaID"
-        titulo="Personal"
-        placeholder="Seleccione al personal"
-        :maxlength="50"
-        class="mb-2"
-      />
-      <Input
-        v-model="tickets.CategoryID"
-        id="CategoryID"
-        titulo="Categoría"
-        placeholder="Seleccione la categoría"
-        :maxlength="50"
-        class="mb-2"
-      />
-      <label>Prioridad</label>
+
+      <label class="mt-2">Prioridad</label>
       <select
         class="form-select"
         aria-label="Default select example"
@@ -38,6 +23,43 @@
         <option value="A">Alta</option>
       </select>
 
+      <span v-if="erroresValidacion && !validacionPrioridad" class="text-danger"
+        >{{ "Es necesario seleccionar la prioridad" }}<br
+      /></span>
+
+      <label class="mt-2">Categoría</label>
+      <select
+        class="form-select"
+        aria-label="Default select example"
+        v-model="tickets.CategoryID"
+      >
+        <option value="" disabled hidden>Seleccione la categoria</option>
+        <option
+          v-for="item in categorias"
+          :value="item.CategoryID"
+          :key="item.id"
+        >
+          {{ item.CategoryName }}
+        </option>
+      </select>
+      <span v-if="erroresValidacion && !validacionCategoria" class="text-danger"
+        >{{ "Es necesario seleccionar la categoría" }}<br
+      /></span>
+
+      <label class="mt-2">Personal</label>
+      <select
+        class="form-select"
+        aria-label="Default select example"
+        v-model="tickets.PersonaID"
+      >
+        <option value="" disabled hidden>Seleccione el personal</option>
+        <option v-for="item in personas" :value="item.PersonaID" :key="item.id">
+          {{ item.Nombre + " " + item.Apellidos }}
+        </option>
+      </select>
+      <span v-if="erroresValidacion && !validacionPersonal" class="text-danger"
+        >{{ "Es necesario seleccionar al personal" }}<br
+      /></span>
 
       <b-button type="submit" class="mt-2" variant="primary">Guardar</b-button>
     </b-form>
@@ -46,7 +68,7 @@
 
 <script>
 import Vue from "vue";
-import { mapActions } from "vuex";
+import { mapActions, mapState } from "vuex";
 import Input from "../components/input";
 
 export default {
@@ -62,24 +84,37 @@ export default {
         PersonaID: "",
         CategoryID: "",
       },
-
       erroresValidacion: false,
     };
   },
   computed: {
-    validacionDescripcion() {
+    ...mapState(["personas", "categorias"]),
+    validacionPrioridad() {
       return (
-        this.tickets.Descripcion !== undefined &&
-        this.tickets.Descripcion.trim() !== ""
+        this.tickets.Prioridad !== undefined &&
+        this.tickets.Prioridad.trim() !== ""
+      );
+    },
+    validacionPersonal() {
+      return (
+        this.tickets.PersonaID>0
+      );
+    },
+    validacionCategoria() {
+      return (
+        this.tickets.CategoryID>0
       );
     },
   },
   methods: {
-    ...mapActions(["obtenerTicket", "editarTicket"]),
+    ...mapActions([
+      "obtenerTicket",
+      "editarTicket",
+      "setPersonas",
+      "setCategorias",
+    ]),
     guardarTickets() {
-        console.log(this.tickets.Prioridad)
-
-      if (this.validacionDescripcion) {
+      if (this.validacionPrioridad && this.validacionPersonal && this.validacionCategoria) {
         this.erroresValidacion = false;
 
         this.editarTicket({
@@ -115,6 +150,10 @@ export default {
         Vue.set(this, "ticket", response.data.data);
       },
     });
+  },
+  mounted() {
+    this.setPersonas();
+    this.setCategorias();
   },
 };
 </script>

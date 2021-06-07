@@ -150,7 +150,7 @@ function crearPersonal(req, res) {
             return res.status(400).send({ error: true, mensaje: "Los apellidos son obligatorios" });
         }
 
-        if (Personal.Telefono.length !== 10) {
+        if (Personal.Telefono.length > 0 && Personal.Telefono.length !== 10) {
             return res.status(400).send({ error: true, mensaje: "La longitud del telefono debe ser de 10 caracteres" });
         }
 
@@ -206,6 +206,10 @@ function editarPersonal(req, res) {
         const { id } = req.params;
         const personal = req.body;
 
+        if (personal.Telefono.length > 0 && personal.Telefono.length !== 10) {
+            return res.status(400).send({ error: true, mensaje: "La longitud del telefono debe ser de 10 caracteres" });
+        }
+
         let sql = "UPDATE proyecto_web.persona set ? WHERE PersonaID = ?";
 
         conexion.query(sql, [personal, id], (err, data) => {
@@ -230,7 +234,7 @@ function editarPersonal(req, res) {
 //funciones de tickets
 function listarTickets(req, res) {
     if (conexion) {
-        let sql = "select t.ticketsID,t.Nombre,t.Descripcion,t.Prioridad,p.Nombre as 'Nombre Personal',c.CategoryName,t.Estatus from proyecto_web.tickets t inner join proyecto_web.categorias c on c.CategoryID = t.CategoryID inner join proyecto_web.persona p on p.PersonaID = t.PersonaID"
+        let sql = "select t.ticketsID,t.Nombre,t.Descripcion,t.Prioridad,p.Nombre as 'Nombre Personal',c.CategoryName,t.Estatus from proyecto_web.tickets t inner join proyecto_web.categorias c on c.CategoryID = t.CategoryID inner join proyecto_web.persona p on p.PersonaID = t.PersonaID ORDER BY ticketsID"
         conexion.query(sql, (err, ticket) => {
             if (err) {
                 res.json(err);

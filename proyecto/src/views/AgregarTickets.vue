@@ -9,7 +9,7 @@
         :maxlength="50"
         placeholder="Ingrese el nombre"
         mensajeError="Es necesario ingresar el nombre"
-        :error="errorValidacion && !validacionTicket"
+        :error="errorValidacion && !validacionNombre"
         class="mt-2"
       />
       <Input
@@ -34,7 +34,7 @@
         <option value="A">Alta</option>
       </select>
 
-      <span v-if="errorValidacion && !validacionTicket" class="text-danger"
+      <span v-if="errorValidacion && !validacionPrioridad" class="text-danger"
         >{{ "Campo Obligatorio" }}<br
       /></span>
 
@@ -50,7 +50,7 @@
         </option>
       </select>
 
-      <span v-if="errorValidacion && !validacionTicket" class="text-danger"
+      <span v-if="errorValidacion && !validacionPersonal" class="text-danger"
         >{{ "Campo Obligatorio" }}<br
       /></span>
 
@@ -70,38 +70,17 @@
         </option>
       </select>
 
-      <span v-if="errorValidacion && !validacionTicket" class="text-danger"
-        >{{ "Campo Obligatorio" }}<br
-      /></span>
-
-      <label class="mt-2">Estatus</label>
-      <select
-        class="form-select"
-        aria-label="Default select example"
-        v-model="Ticket.Estatus"
-      >
-        <option value="" disabled hidden>Seleccione el estatus</option>
-
-        <option value="" disabled hidden>Seleccione la prioridad</option>
-        <option value="ABT">Abierto</option>
-        <option value="ESP">En espera</option>
-        <option value="FIN">Finalizado</option>
-      </select>
-
-      <span v-if="errorValidacion && !validacionTicket" class="text-danger"
+      <span v-if="errorValidacion && !validacionCategoria" class="text-danger"
         >{{ "Campo Obligatorio" }}<br
       /></span>
 
       <b-button type="submit" variant="primary" class="mt-3">Guardar</b-button>
     </b-form>
-    <notifications position="bottom right" />
   </div>
 </template>
 
 <script>
 import Input from "../components/input";
-// import Select from "../components/Select.vue"
-
 import { mapActions, mapState } from "vuex";
 export default {
   name: "AgregarTickets",
@@ -117,34 +96,56 @@ export default {
         Prioridad: "",
         PersonaID: "",
         CategoryID: "",
-        Estatus: "",
+        Estatus: "ABT",
       },
       errorValidacion: false,
     };
   },
   computed: {
     ...mapState(["prioridades", "personas", "categorias"]),
-    validacionTicket() {
-      console.dir(
-        this.Ticket.Nombre,
-        this.Ticket.Prioridad,
-        this.Ticket.PersonaID,
-        this.Ticket.CategoryID
-      );
+    validacionNombre() {
       return (
-        this.Ticket.Nombre !== undefined &&
-        this.Ticket.Nombre.trim() !== "" &&
-        this.Ticket.Prioridad.length > 0 &&
-        this.Ticket.PersonaID !== undefined &&
-        this.Ticket.CategoryID !== undefined
+        this.Ticket.Nombre!== undefined &&
+        this.Ticket.Nombre.trim() !== ""
       );
     },
+    validacionPrioridad() {
+      return (
+        this.Ticket.Prioridad !== undefined &&
+        this.Ticket.Prioridad.trim() !== ""
+      );
+    },
+    validacionPersonal() {
+      return (
+        this.Ticket.PersonaID>0
+      );
+    },
+    validacionCategoria() {
+      return (
+        this.Ticket.CategoryID>0
+      );
+    },
+    // validacionTicket() {
+    //   console.dir(
+    //     this.Ticket.Nombre,
+    //     this.Ticket.Prioridad,
+    //     this.Ticket.PersonaID,
+    //     this.Ticket.CategoryID
+    //   );
+    //   return (
+    //     this.Ticket.Nombre !== undefined &&
+    //     this.Ticket.Nombre.trim() !== "" &&
+    //     this.Ticket.Prioridad.length > 0 &&
+    //     this.Ticket.PersonaID !== undefined &&
+    //     this.Ticket.CategoryID !== undefined
+    //   );
+    // },
   },
   methods: {
     ...mapActions(["crearTicket", "setPersonas", "setCategorias"]),
     guardarTicket() {
-      console.log(this.validacionTicket);
-      if (this.validacionTicket) {
+      // console.log(this.validacionNombre);
+      if (this.validacionNombre && this.validacionPrioridad && this.validacionPersonal && this.validacionCategoria) {
         console.log(this.Ticket);
         this.errorValidacion = false;
         //guardar
