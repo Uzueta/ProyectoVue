@@ -9,7 +9,7 @@
                 :maxlength=50
                 placeholder="Ingrese el nombre"
                 mensajeError="Es necesario ingresar el nombre"
-                :error="errorValidacion && !validacionPersonal"
+                :error="errorValidacion && !validacionNombre"
                 class="mt-2"
             />
             <Input 
@@ -19,7 +19,7 @@
                 :maxlength=80
                 placeholder="Ingrese los apellidos"
                 mensajeError="Es necesario ingresar los apellidos"
-                :error="errorValidacion && !validacionPersonal"
+                :error="errorValidacion && !validacionApellidos"
                 class="mt-2"
             />
             <Input 
@@ -28,7 +28,6 @@
                 titulo="Telefono"
                 :maxlength=10
                 placeholder="Ingrese el telefono"
-                :error="errorValidacion && !validacionPersonal"
                 class="mt-2"
             />
             <Input 
@@ -37,7 +36,6 @@
                 titulo="Direccion"
                 :maxlength=150
                 placeholder="Ingrese la direccion"
-                :error="errorValidacion && !validacionPersonal"
                 class="mt-2"
             />
              <b-button type="submit" variant="primary" class="mt-3">Guardar</b-button>
@@ -66,17 +64,21 @@ name: "AgregarPersonal",
         }
     },
     computed: {
-        validacionPersonal() {
+        validacionNombre() {
             return (
-                this.Personal.Nombre !== undefined && this.Personal.Nombre.trim() !== '' && 
-                this.Personal.Apellidos !== undefined && this.Personal.Apellidos.trim() !== '' 
+                this.Personal.Nombre !== undefined && this.Personal.Nombre.trim() !== ''
+            )
+        },
+        validacionApellidos(){
+            return (
+                this.Personal.Apellidos !== undefined && this.Personal.Apellidos.trim() !== ''
             )
         }
     },
     methods:{
         ...mapActions(['crearPersonal']),
         guardarPersonal(){
-            if(this.validacionPersonal ){
+            if(this.validacionNombre && this.validacionApellidos ){
                 this.errorValidacion = false
                 //guardar
                 this.crearPersonal({

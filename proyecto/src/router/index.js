@@ -9,6 +9,7 @@ import AgregarPersonal from '../views/AgregarPersonal.vue'
 import AgregarTickets from '../views/AgregarTickets.vue'
 import EditarPersonal from '../views/EditarPersonal.vue'
 import EditarTickets from '../views/EditarTickets.vue'
+import CambiarEstatus from '../views/CambiarEstatus.vue'
 
 Vue.use(VueRouter)
 
@@ -43,10 +44,10 @@ const routes = [{
         component: AgregarPersonal
     },
     {
-      path: '/AgregarTickets',
-      name: 'AgregarTickets',
-      component: AgregarTickets
-  },
+        path: '/AgregarTickets',
+        name: 'AgregarTickets',
+        component: AgregarTickets
+    },
     {
         path: '/EditarPersonal',
         name: 'EditarPersonal',
@@ -56,6 +57,11 @@ const routes = [{
         path: '/EditarTickets',
         name: 'EditarTickets',
         component: EditarTickets
+    },
+    {
+        path: '/cambiarEstatus',
+        name: 'CambiarEstatus',
+        component: CambiarEstatus
     }
 ]
 

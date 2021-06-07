@@ -330,22 +330,41 @@ function editarTicket(req, res) {
         const { id } = req.params;
         const ticket = req.body;
 
+        if (!(ticket.Estatus && !ticket.Prioridad && !ticket.PersonaID && !ticket.CategoryID)) {
+            if (!ticket.Prioridad) {
+                return res.status(400).send({ error: true, mensaje: "La prioridad es obligatoria" });
+            }
+
+            if (!ticket.PersonaID) {
+                return res.status(400).send({ error: true, mensaje: "El personal es obligatorio" });
+            }
+
+            if (!ticket.CategoryID) {
+                return res.status(400).send({ error: true, mensaje: "La categoria es obligatoria" });
+            }
+
+            if (ticket.Descripcion.length > 100) {
+                return res.status(400).send({ error: true, mensaje: "La longitud de la descripcion debe ser menor de 100 caracteres" });
+            }
+        }
+
         let sql = "UPDATE proyecto_web.tickets set ? WHERE ticketsID = ?";
 
-        conexion.query(sql, [ticket, id], (err, data) => {
-            if (err) {
-                res.json(err);
-            } else {
-                let mensaje = "";
-                if (data.changedRows === 0) {
-                    mensaje = "La información es la misma"
+        var query = conexion.query(sql, [ticket, id], (err, data) => {
+                if (err) {
+                    res.json(err);
                 } else {
-                    mensaje = "Ticket actualizada con exito."
-                }
+                    let mensaje = "";
+                    if (data.changedRows === 0) {
+                        mensaje = "La información es la misma"
+                    } else {
+                        mensaje = "Ticket actualizado con exito."
+                    }
 
-                res.json({ error: false, data, mensaje });
-            }
-        })
+                    res.json({ error: false, data, mensaje });
+                }
+            })
+            // res.status(400).send({ error: true, mensaje: "err" + query.sql });
 
 
     }

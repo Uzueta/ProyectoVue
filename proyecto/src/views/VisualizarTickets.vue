@@ -13,43 +13,50 @@
 </template>
 
 <script>
-import Table from "../components/Table";
-import { mapActions, mapState } from "vuex";
+import Table from '../components/Table'
+import {mapActions,mapState} from 'vuex'
 
 export default {
-  name: "VisualizarTickets",
+  name: 'VisualizarTickets',
   components: {
-    Table,
+    Table
   },
-  data() {
-    return {
+  data(){
+    return{
       campos: [
-        { key: "ticketsID", label: "Clave" },
-        { key: "Nombre", label: "Nombre" },
-        {
-          key: "Descripcion",
-          label: "Descripcion",
-          formatter: (value) => {
-            return value || "-";
-          },
+        {key: "ticketsID", label: "Clave" },
+        {key: "Nombre", label: "Nombre" },
+        {   key: "Descripcion", 
+            label: "Descripcion",
+            formatter: (value) => {
+                return value || "-";}
         },
-        { key: "Prioridad", label: "Prioridad" },
-        { key: "Nombre Personal", label: "Nombre Personal" },
-        { key: "CategoryName", label: "Categoria" },
-        { key: "Estatus", label: "Estatus" },
+        {key: "Prioridad", label: "Prioridad" },
+        {key: "Nombre Personal", label: "Nombre Personal" },
+        {key: "CategoryName", label: "Categoria" },
+        {key: "Estatus", label: "Estatus" },
         { key: "actions", label: "Acciones" },
-      ],
-    };
+      ]
+    }
   },
-  computed: {
-    ...mapState(["tickets"]),
+  computed:{
+    ...mapState(['tickets'])
   },
-  methods: {
-    ...mapActions(["setTickets", "eliminarTicket"]),
+  methods:{
+    ...mapActions(['setTickets', 'eliminarTicket']),
     onEditar(item) {
       console.log("Editar", item.item.ticketsID);
       this.$router.push({
         name: "EditarTickets",
+        params: {
+          id: item.item.ticketsID,
+        },
+      });
+    },
+    onEstatus(item) {
+      console.log("Estatus", item.item.ticketsID);
+      this.$router.push({
+        name: "CambiarEstatus",
         params: {
           id: item.item.ticketsID,
         },
@@ -83,15 +90,12 @@ export default {
           }
         })
         .catch((err) => {
-          console.log(err);
+          console.log(err)
         });
     },
-    onEstatus(item) {
-      console.log("Estatus", item.item.ticketsID);
-    },
   },
-  created() {
-    this.setTickets();
-  },
-};
+  created(){
+    this.setTickets()
+  }
+}
 </script>
