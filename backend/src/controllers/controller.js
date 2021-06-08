@@ -234,7 +234,11 @@ function editarPersonal(req, res) {
 //funciones de tickets
 function listarTickets(req, res) {
     if (conexion) {
-        let sql = "select t.ticketsID,t.Nombre,t.Descripcion,t.Prioridad,p.Nombre as 'Nombre Personal',c.CategoryName,t.Estatus from proyecto_web.tickets t inner join proyecto_web.categorias c on c.CategoryID = t.CategoryID inner join proyecto_web.persona p on p.PersonaID = t.PersonaID ORDER BY ticketsID"
+        let sql = `select t.ticketsID,t.Nombre,t.Descripcion,t.Prioridad, concat(p.Nombre,' ',p.Apellidos) as 'Nombre Personal' ,c.CategoryName,t.Estatus 
+        from proyecto_web.tickets t 
+        inner join proyecto_web.categorias c on c.CategoryID = t.CategoryID 
+        inner join proyecto_web.persona p on p.PersonaID = t.PersonaID 
+        ORDER BY ticketsID`
         conexion.query(sql, (err, ticket) => {
             if (err) {
                 res.json(err);
