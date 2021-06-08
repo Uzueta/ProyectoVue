@@ -8,21 +8,19 @@
         class="form-select"
         aria-label="Default select example"
         v-model="Categoria.CategoryID"
+        @change="filtrar()"
           >
           <option value="" disabled hidden>Selecciona</option>
           <option v-for="item in categorias" :value="item.CategoryID" :key="item.id">
             {{ item.CategoryName }}
           </option>
         </select>
-       </div>
-       <div class="col">
-         <b-button variant="outline-secondary" @click="filtrar()">Filtrar</b-button>
-       </div>
-        
+       </div> 
      </div>
-      
-      
-    <b-table :items="ticketsFiltrados" :fields="campos" :tbody-tr-class="rowClass"></b-table>
+     <div class="cards">
+       <Card v-for="t in ticketsFiltrados" :key="t.ticketsID" :color="returnColor(t)" :nombre="t.Nombre" :id="t.ticketsID" :descripcion="t.Descripcion" :estatus="t.Estatus" :prioridad="t.Prioridad"/>
+    </div>
+    
   </div>
 </template>
 
@@ -30,25 +28,14 @@
 
 
 import { mapActions, mapState } from "vuex";
+import Card from '../components/Card'
 export default {
     name: "Inicio",
     components: {
+      Card
     },
     data(){
     return{
-      campos: [
-        {key: "ticketsID", label: "Clave" },
-        {key: "Nombre", label: "Nombre" },
-        {   key: "Descripcion", 
-            label: "Descripcion",
-            formatter: (value) => {
-                return value || "-";}
-        },
-        {key: "Prioridad", label: "Prioridad" },
-        {key: "Nombre_Personal", label: "Nombre Personal" },
-        {key: "CategoryName", label: "Categoria" },
-        {key: "Estatus", label: "Estatus" }
-      ],
       Categoria: {
         Nombre: "",
         CategoryID: ""
@@ -60,11 +47,10 @@ export default {
     },
   methods: {
     ...mapActions(["setCategorias", "obtenerTicketsFiltrados"]),
-    rowClass(tickets, type) {
-        if (!tickets || type !== 'row') return  
-        if (tickets.Estatus === 'ESP') return 'table-success'
-        if (tickets.Estatus === 'ABT') return 'table-danger'
-        if (tickets.Estatus === 'FIN') return 'table-secondary'
+    returnColor(tickets) {  
+        if (tickets.Estatus === 'ESP') return 'success'
+        if (tickets.Estatus === 'ABT') return 'danger'
+        if (tickets.Estatus === 'FIN') return 'secondary'
       },
       filtrar(){
         this.obtenerTicketsFiltrados({
@@ -78,3 +64,9 @@ export default {
   
 }
 </script>
+
+<style>
+  .cards{
+    display: flex;
+  }
+</style>

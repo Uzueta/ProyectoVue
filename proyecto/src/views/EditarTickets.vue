@@ -61,7 +61,8 @@
         >{{ "Es necesario seleccionar al personal" }}<br
       /></span>
 
-      <b-button type="submit" class="mt-2" variant="primary">Guardar</b-button>
+      <b-button type="submit" class="m-2" variant="primary">Guardar</b-button>
+      <b-button type="submit" class="m-2" variant="secondary" to="/VisualizarTickets">Cancelar</b-button>
     </b-form>
   </div>
 </template>
@@ -147,7 +148,7 @@ export default {
     this.obtenerTicket({
       id: this.$route.params.id,
       onComplete: (response) => {
-        Vue.set(this, "ticket", response.data.data);
+        Vue.set(this, "tickets", response.data.data);
       },
     });
   },

@@ -38,7 +38,8 @@
                 placeholder="Ingrese la direccion"
                 class="mt-2"
             />
-      <b-button type="submit" class="mt-2" variant="primary">Guardar</b-button>
+      <b-button type="submit" class="m-2" variant="primary">Guardar</b-button>
+      <b-button type="submit" class="m-2" variant="secondary" to="/VisualizarPersonal">Cancelar</b-button>
     </b-form>
   </div>
 </template>
@@ -112,7 +113,7 @@ created() {
     this.obtenerPersona({
         id: this.$route.params.id,
         onComplete: (response) => {
-            Vue.set(this, 'persona', response.data.data)
+            Vue.set(this, 'Personal', response.data.data)
         }
     })
 }
